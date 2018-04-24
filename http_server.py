@@ -59,12 +59,24 @@ def response_not_found():
     # Allowed response.
 
     pass
-    
+
 
 def resolve_uri(uri):
-    
     mime_type = mimetypes.guess_type(uri)
+    mime_type = mime_type[0]
+    content_target = uri.lstrip('/')
     print("Mime Type: {}".format(mime_type))
+    print("content_target: {}".format(content_target))
+
+    if mime_type == ('text/plain'):
+        try:
+            print("Mime Type was correctly found.")
+            # os.open(content_target)
+        except OSError:
+            print("Content Target Was Not Found")
+            response_not_found()
+    else:
+        print("Mimetype was something else.")
 
     """
     This method should return appropriate content and a mime type.
