@@ -1,0 +1,14 @@
+CRAP
+
+ """
+    elif mime_type == 'text/html'
+        content = 
+    elif mime_type ==
+    elif mime_type ==
+        try:
+            print("Mime Type was correctly found.")
+            # os.open(content_target)
+        except OSError:
+            print("Content Target Was Not Found")
+            response_not_found()
+            """

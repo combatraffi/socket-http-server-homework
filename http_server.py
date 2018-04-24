@@ -58,25 +58,26 @@ def response_not_found():
     # You can re-use most of the code from the 405 Method Not
     # Allowed response.
 
+def check_existance(file):
     pass
-
 
 def resolve_uri(uri):
     mime_type = mimetypes.guess_type(uri)
     mime_type = mime_type[0]
-    content_target = uri.lstrip('/')
+    content_target = uri
+    fullpath_content_target = os.getcwd() + content_target
     print("Mime Type: {}".format(mime_type))
     print("content_target: {}".format(content_target))
-
-    if mime_type == ('text/plain'):
+    print("Full Path Target: {}".format(fullpath_content_target))
+    if mime_type == None:
+        if content_target =='/':
+            content = os.listdir(os.getcwd())
         try:
-            print("Mime Type was correctly found.")
-            # os.open(content_target)
-        except OSError:
-            print("Content Target Was Not Found")
-            response_not_found()
+            content = os.listdir(content_target)
+        except NameError: 
+            pass
     else:
-        print("Mimetype was something else.")
+        content = open(content_target,'rb')
 
     """
     This method should return appropriate content and a mime type.
@@ -113,7 +114,9 @@ def resolve_uri(uri):
     # file as a stream of bytes.
 
     # content = b"not implemented"
-    content = b"Dance"
+    
+    # content = b"Dance"
+    print("Content: {}".format(content))
     mime_type = b"not implemented"
 
     return content, mime_type
