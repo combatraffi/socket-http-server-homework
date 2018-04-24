@@ -1,6 +1,7 @@
 import socket
 import sys
 import os
+import mimetypes
 
 def response_ok(body=b"This is a minimal response", mimetype=b"text/plain"):
     """
@@ -28,7 +29,9 @@ def response_ok(body=b"This is a minimal response", mimetype=b"text/plain"):
 def parse_request(request):
     
     method, uri, version = request.split("\r\n")[0].split(" ")
-
+    print("Method: {}".format(method))
+    print("URI: {}".format(uri))
+    print("Version: {}".format(version))
     if method != "GET":
         raise NotImplementedError
 
@@ -46,7 +49,11 @@ def response_method_not_allowed():
 
 def response_not_found():
     """Returns a 404 Not Found response"""
-
+    return b"\r\n".join([
+                b"HTTP/1.1 404 Not Found",
+                b"",
+                b"File not found!!",
+            ])
     # TODO: Construct and return a 404 "not found" response
     # You can re-use most of the code from the 405 Method Not
     # Allowed response.
@@ -55,6 +62,10 @@ def response_not_found():
     
 
 def resolve_uri(uri):
+    
+    mime_type = mimetypes.guess_type(uri)
+    print("Mime Type: {}".format(mime_type))
+
     """
     This method should return appropriate content and a mime type.
 
@@ -89,7 +100,8 @@ def resolve_uri(uri):
     # Hint: When opening a file, use open(filename, "rb") to open and read the
     # file as a stream of bytes.
 
-    content = b"not implemented"
+    # content = b"not implemented"
+    content = b"Dance"
     mime_type = b"not implemented"
 
     return content, mime_type
@@ -121,6 +133,9 @@ def server(log_buffer=sys.stderr):
 
                 try:
                     uri = parse_request(request)
+                    print()
+                    print("Request: {}".format(request))
+                    print()
                 except NotImplementedError:
                     response = response_method_not_allowed()
                 else:
