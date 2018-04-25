@@ -62,23 +62,18 @@ def check_existance(file):
     pass
 
 def resolve_uri(uri):
+
     mime_type = mimetypes.guess_type(uri)
     mime_type = mime_type[0]
     content_target = uri
-    fullpath_content_target = os.getcwd() + content_target
-    print("Mime Type: {}".format(mime_type))
-    print("content_target: {}".format(content_target))
-    print("Full Path Target: {}".format(fullpath_content_target))
+    basedir = os.getcwd()
+    print("Content Target: {}".format(content_target))
+    print("Base Directory: {}".format(basedir))
+    print("Dir-thing: {}".format(os.listdir()))
     if mime_type == None:
-        if content_target =='/':
-            content = os.listdir(os.getcwd())
-        try:
-            content = os.listdir(content_target)
-        except NameError: 
-            pass
-    else:
-        content = open(content_target,'rb')
-
+        if content_target == '/':
+            content = os.listdir()
+            print(content)
     """
     This method should return appropriate content and a mime type.
 
@@ -115,10 +110,9 @@ def resolve_uri(uri):
 
     # content = b"not implemented"
     
-    # content = b"Dance"
-    print("Content: {}".format(content))
+    content = b"Dance"
+    # print("Content: {}".format(content))
     mime_type = b"not implemented"
-
     return content, mime_type
 
 
@@ -171,6 +165,7 @@ def server(log_buffer=sys.stderr):
 
 
 if __name__ == '__main__':
+    os.chdir('/Users/Kuchan/Documents/GitHub/socket-http-server-homework/webroot')
     server()
     sys.exit(0)
 

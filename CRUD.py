@@ -1,5 +1,6 @@
 import os
 
 target = '/Users/Kuchan/Documents/GitHub/socket-http-server-homework/images/sample_1.png'
+target2 = '/Users/Kuchan/Documents/GitHub/socket-http-server-homework/images/'
 
-os.open(target, os.O_RDONLY)
+os.listdir(target2)
